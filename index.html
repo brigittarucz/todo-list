@@ -1,0 +1,183 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> To Do List </title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Knewave|Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Mansalva&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <main>
+        <section class="graph-section">
+            <article class="graph-info">
+                <h3 class="additional-info"> <span class="additional-info-month">
+                        September
+                    </span> Activity Graphic : &nbsp;&nbsp;&nbsp; <span class="additional-info-activnumber">
+                        23
+                    </span> Activities Planned </h3>
+            </article>
+            <article class="graph-draw">
+                <div class="bar day-number25">
+                    <p> 25 </p>
+                </div>
+                <div class="bar day-number26">
+                    <p> 26 </p>
+                </div>
+                <div class="bar day-number27">
+                    <p> 27 </p>
+                </div>
+                <div class="bar day-number28">
+                    <p> 28 </p>
+                </div>
+                <div class="bar day-number29">
+                    <p> 29 </p>
+                </div>
+                <div class="bar day-number30">
+                    <p> 31 </p>
+                </div>
+            </article>
+            <article class="quote-of-the-day">
+            </article>
+        </section>
+        <section class="todo-section">
+            <ul class="todo-controls">
+                <li class="move-previous"> &#10094; </li>
+                <li class="move-next"> &#10095; </li>
+            </ul>
+            <div class="wrapper">
+
+            </div>
+            <article class="add-form">
+                <h2 class="add-header"> Add Activity </h2>
+                <form class="add-element-form">
+                    <label for="name-form"> To Do: </label>
+                    <input type="text" name="nameActivity" id="name-form" required>
+                    <label for="date-form"> Scheduled On: </label>
+                    <input type="datetime-local" name="dateActivity" id="date-form" required>
+                    <label for="importance-form"> Importance Level: </label>
+                    <input type="number" name="importanceActivity" min="1" max="10" id="importance-form" required>
+                    <label for="description-form"> Description: </label>
+                    <textarea cols="25" rows="5" name="descriptionActivity" id="description-form" maxlength="100">
+                            </textarea>
+                    <label for="meet-form"> With: </label>
+                    <input type="text" name="meetActivity" id="meet-form" maxlength="40">
+                    <br>
+                    <button type="submit"> Add Activity </button>
+                </form>
+                <i class="fas fa-plus-circle add-icon"> </i>
+            </article>
+        </section>
+        <section class="calendar-section">
+            <div class="month">
+                <ul>
+                    <li class="move-previous"> &#10094; </li>
+                    <li class="move-next"> &#10095; </li>
+                    <li> September 2019 </li>
+                </ul>
+            </div>
+
+            <ul class="weekdays">
+                <li> Mo </li>
+                <li> Tu </li>
+                <li> We </li>
+                <li> Th </li>
+                <li> Fr </li>
+                <li> Sa </li>
+                <li> Su </li>
+            </ul>
+
+            <ul class="days">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+                <li>11</li>
+                <li>12</li>
+                <li>13</li>
+                <li>14</li>
+                <li>15</li>
+                <li>16</li>
+                <li>17</li>
+                <li>18</li>
+                <li>19</li>
+                <li>20</li>
+                <li>21</li>
+                <li>22</li>
+                <li>23</li>
+                <li>24</li>
+                <li>25</li>
+                <li> <span class="active"> 26 </span> </li>
+                <li>27</li>
+                <li>28</li>
+                <li>29</li>
+                <li>30</li>
+            </ul>
+        </section>
+    </main>
+
+
+    <template>
+        <div class="card">
+            <article class="todo-activity card-side card-side-front" data-id="unique-id">
+                <i class="fas fa-pen pen-icon press-to-edit"> </i>
+                <h2 class="name-activity"> Go Shopping </h2>
+                <p class="date-activity"> 31/09/2019 </p>
+                <p class="importance-activity"> Importance: </p> <br>
+                <svg height="15" width="135">
+                    <line x1="5" y1="10" x2="35" y2="10"
+                        style="stroke:rgba(235, 77, 90, 1); stroke-width: 10; stroke-linecap: round;" />
+                    <line x1="50" y1="10" x2="80" y2="10"
+                        style="stroke:rgba(235, 77, 90, 1); stroke-width: 10; stroke-linecap: round;" />
+                    <line x1="95" y1="10" x2="125" y2="10"
+                        style="stroke:rgba(235, 77, 90, 1); stroke-width: 10; stroke-linecap: round;" />
+                </svg>
+                <p class="description-activity"> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vel,
+                    nobis
+                    quis commodi exercitationem cupiditate ea. </p>
+                <p class="meet-activity"> Meet with: <span class="meet-activity-set"> Anna, Robert, Jeremy
+                    </span>
+                </p>
+                <button class="delete-it"> Delete </button>
+            </article>
+            <article class="todo-activity card-side card-side-back">
+                <h2 class="edit-header"> Edit Activity </h2>
+                <span class="cancel"> &times; </span>
+                <br>
+                <br>
+                <form class="edit-form">
+                    <label for="name-form"> To Do: </label>
+                    <input type="text" name="nameActivity" id="name-form" required value="Go Shopping">
+                    <label for="date-form"> Scheduled On: </label>
+                    <input type="datetime" name="dateActivity" id="date-form" required>
+                    <label for="importance-form"> Importance Level: </label>
+                    <input type="number" name="importanceActivity" min="1" max="10" id="importance-form" required
+                        value="9">
+                    <label for="description-form"> Description: </label>
+                    <textarea cols="25" rows="5" name="descriptionActivity" id="description-form" maxlength="100">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                        </textarea>
+                    <label for="meet-form"> With: </label>
+                    <input type="text" name="meetActivity" id="meet-form" maxlength="40" value="Adam, Jamie">
+                    <br>
+                    <input type="hidden" name="id" class="storeID">
+                    <button type="submit" class="edit-submit"> Edit Activity </button>
+                </form>
+            </article>
+    </template>
+
+    <script src="javascript.js"> </script>
+    <script src="https://kit.fontawesome.com/96cb157887.js"> </script>
+</body>
+
+</html>

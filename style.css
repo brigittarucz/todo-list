@@ -1,0 +1,377 @@
+.calendar-section * {
+	box-sizing: border-box;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.month {
+	width: 100%;
+	margin: 30px 0px;
+	text-align: center;
+	font-size: 24px;
+	text-transform: uppercase;
+}
+
+.move-previous {
+	float: left;
+}
+
+.move-next {
+	float: right;
+}
+
+.weekdays li {
+	display: inline-block;
+	width: 13%;
+	text-align: center;
+	margin: 10px 0px;
+}
+
+.days li {
+	display: inline-block;
+	width: 13%;
+	text-align: center;
+	margin: 15px 0px;
+}
+
+.active {
+	background-color: #5b3046;
+	border-radius: 50%;
+	opacity: 0.8;
+	padding: 15px;
+}
+
+.graph-section {
+	position: relative;
+}
+
+article.graph-info {
+	text-align: center;
+}
+
+article.graph-draw {
+	bottom: 50px;
+	position: absolute;
+	margin-left: calc(50% - 230px);
+	background-image: url("graph-bg.png");
+	background-size: cover;
+}
+
+.bar {
+	display: inline-block;
+	margin-left: 30px;
+	width: 30px;
+	height: 150px;
+	background: linear-gradient(180deg, rgba(235, 77, 90, 1) 0%, rgba(34, 36, 61, 1) 100%);
+}
+
+.bar p {
+	position: absolute;
+	margin-top: 170px;
+	margin-left: 5px;
+}
+
+.bar:nth-child(n + 26) {
+	background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(34, 36, 61, 1) 100%);
+}
+
+/* GENERAL LAYOUT */
+
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #22243d;
+	font-family: 'Quicksand', sans-serif;
+	color: white;
+}
+
+main {
+	display: grid;
+	grid-template-columns: 3.5fr 5fr;
+	grid-template-rows: 280px 3fr;
+	grid-gap: 5px;
+	background-color: #1f213a;
+}
+
+main > section {
+	padding: 10px 25px;
+	background-color: #22243d;
+}
+
+section.graph-section {
+	grid-column: 2/span 1;
+	grid-row: 1/span 1;
+	background-color: #1f213a;
+}
+
+section.todo-section {
+	grid-column: 1/span 1;
+	grid-row: 1/span 2;
+	background: linear-gradient(240deg, rgba(97, 49, 71, 1) 0%, rgba(34, 36, 61, 1) 60%);
+	position: relative;
+}
+
+section.calendar-section {
+	grid-column: 2/span 1;
+	grid-row: 2/span 1;
+	background-color: #1d1f35;
+	margin: 25px 25px 20px 15px;
+}
+
+/* To Do Card Layout */
+
+.todo-activity {
+	background-color: #1d1f35;
+	margin: 60px 0px 20px 0px;
+	margin-left: calc(50% - 265px);
+	padding: 25px;
+	height: 270px;
+	position: relative;
+	perspective: 150rem;
+}
+
+.card {
+	margin-left: calc(50% - 265px);
+	display: none;
+}
+
+.card-side {
+	position: absolute;
+	backface-visibility: hidden;
+	transition: all .8s ease;
+	width: 430px;
+}
+
+.card-side-front {
+	z-index: 1;
+}
+
+.pen-icon {
+	float: right;
+	font-size: 22px;
+}
+
+.importance-activity {
+	display: inline;
+	opacity: 0.2;
+}
+
+.date-activity {
+	display: inline;
+	float: right;
+	opacity: 0.2;
+}
+
+.duration-activity {
+	position: absolute;
+	bottom: 0;
+	opacity: 0.2;
+	right: 30px;
+}
+
+.todo-activity h2 {
+	font-family: 'Permanent Marker', cursive;
+	font-size: 26px;
+}
+
+/* Add New Layout */
+
+.add-header {
+	all: unset;
+	font-family: 'Permanent Marker', cursive;
+	font-size: 26px;
+	display: none;
+	opacity: 0;
+}
+
+.add-form {
+	z-index: 3;
+	position: absolute;
+	margin: 0 0px;
+	bottom: 50;
+	padding: 25px;
+	border-radius: 55px;
+	background-color: #1d1f35;
+	border: 0.5px solid #5b3046;
+	box-shadow: 0px 0px 10px #5b3046;
+}
+
+.add-form form * {
+	display: block;
+	margin: 7px;
+	padding: 3px;
+	opacity: 0;
+}
+
+.add-form form {
+	margin-top: 20px;
+	display: grid;
+	grid-template-columns: 170px 230px;
+	height: 0;
+	display: none;
+	margin-bottom: -30px;
+}
+
+.add-icon {
+	font-size: 46px;
+	width: 50px;
+}
+
+.createWidth {
+	animation: createWidth 1s linear forwards;
+}
+
+.createHeight {
+	animation: createHeight 0.75s linear forwards;
+}
+
+.raiseOpacity {
+	animation: raiseOpacity 1s linear forwards;
+}
+
+.translateHeight {
+	animation: translateHeight 1s forwards;
+}
+
+@keyframes createWidth {
+	to {
+		width: 400px;
+	}
+}
+
+@keyframes createHeight {
+	to {
+		height: 260px;
+	}
+}
+
+@keyframes raiseOpacity {
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes translateHeight {
+	to {
+		transform: translateY(-20px);
+	}
+}
+
+/* Form Validation States */
+
+input,
+textarea {
+	background-color: #5b3046;
+	border: 1px solid #743549;
+	outline: 0.2px solid #eb4d5a;
+	color: white;
+}
+
+.shakeElem {
+	animation: shake .125s 2 backwards;
+}
+
+/* 
+
+input:invalid:not(:focus) {
+    animation: shake .125s 2 backwards;
+}
+
+*/
+
+.add-form input:focus,
+.add-form textarea:focus {
+	box-shadow: 0px 0px 15px #eb4d5a;
+}
+
+@keyframes shake {
+	50% {
+		transform: translateX(10px);
+	}
+}
+
+/* Edit Layout */
+
+.edit-header {
+	all: unset;
+}
+
+.cancel {
+	font-size: 32px;
+	float: right;
+	margin-top: -20px;
+}
+
+.edit-form {
+	margin: 0px 30px 0px 30px;
+	display: grid;
+	grid-template-columns: 170px 200px;
+	margin-top: -20px;
+}
+
+.edit-form * {
+	display: block;
+	margin: 2px;
+	padding: 3px;
+}
+
+.edit-form input,
+.edit-form textarea {
+	background-color: #5b3046;
+	border: 1px solid #512e44;
+	outline: 0.2px solid #512e44;
+	color: #1d1f35;
+	font-size: 14px;
+}
+
+.edit-form input:focus,
+.edit-form textarea:focus {
+	background-color: #5b3046;
+	border: 1px solid #743549;
+	outline: 0.2px solid #eb4d5a;
+	color: white;
+}
+
+.cancel:hover,
+.press-to-edit:hover {
+	text-shadow: 2px 2px 10px #eb4d5a;
+	cursor: pointer;
+}
+
+.add-icon:hover {
+	text-shadow: 2px 2px 30px #eb4d5a;
+	cursor: pointer;
+}
+
+.todo-controls {
+	position: absolute;
+	margin-top: 180px;
+	margin-left: 0px;
+	font-size: 50px;
+	z-index: 10;
+}
+
+.todo-controls .move-previous {
+	margin-right: 520px;
+}
+.todo-controls .move-previous:hover {
+	transition: all 0.5s ease;
+	transform: translateX(-15px);
+	cursor: pointer;
+}
+
+.todo-controls .move-next:hover {
+	transition: all 0.5s ease;
+	transform: translateX(15px);
+	cursor: pointer;
+}
+
+.wrapper {
+	position: relative;
+}
