@@ -134,15 +134,16 @@ function addActivityToDOM(activity) {
 		deleteIt(activity._id);
 	});
 
-	clone.querySelector('.press-to-edit').addEventListener('click', (e) => {
+	clone.querySelector('.press-to-edit').addEventListener('click', () => {
 		fetchAndPopulate(activity._id);
 	});
 
 	clone.querySelector('.storeID').value = activity._id;
 
 	clone.querySelector('.edit-submit').addEventListener('submit', (e) => {
-		e.preventDefault();
+		console.log('hello');
 		put();
+		e.preventDefault();
 	});
 
 	parent.appendChild(clone);
@@ -272,6 +273,8 @@ function put() {
 	})
 		.then((e) => e.json())
 		.then((editedActivity) => {
-			addActivityToDOM(editedActivity);
+			// find the parent
+			console.log(document.querySelector(`[data-postid="${editedActivity._id}"]`).remove());
+			// update the dom
 		});
 }
