@@ -95,15 +95,17 @@ function showNextCard() {
 
 /* Database functions */
 
+/* Get database objects with get() */
+
 function get() {
 	fetch('https://frontendautumn2019-e4d9.restdb.io/rest/todolist', {
-		method: 'get',
-		headers: {
-			'Content-Type': 'application/json; charset=utf-8',
-			'x-apikey': '5d887446fd86cb75861e25f5',
-			'cache-control': 'no-cache'
-		}
-	})
+			method: 'get',
+			headers: {
+				'Content-Type': 'application/json; charset=utf-8',
+				'x-apikey': '5d887446fd86cb75861e25f5',
+				'cache-control': 'no-cache'
+			}
+		})
 		.then((e) => e.json())
 		.then((activities) => {
 			activities.forEach(addActivityToDOM);
@@ -114,10 +116,8 @@ function addActivityToDOM(activity) {
 	const parent = document.querySelector('.wrapper');
 	const template = document.querySelector('template').content;
 	const clone = template.cloneNode(true);
-	console.log(activity);
 	clone.querySelector('.name-activity').textContent = activity.Activity;
 	clone.querySelector('.date-activity').textContent = activity.Date;
-	console.log(activity.Importance);
 	if (activity.Importance < 4) {
 		clone.querySelector('svg').children[1].style.display = 'none';
 		clone.querySelector('svg').children[2].style.display = 'none';
@@ -140,10 +140,9 @@ function addActivityToDOM(activity) {
 
 	clone.querySelector('.storeID').value = activity._id;
 
-	clone.querySelector('.edit-submit').addEventListener('submit', (e) => {
-		console.log('hello');
-		put();
+	clone.querySelector('.edit-submit').addEventListener('click', (e) => {
 		e.preventDefault();
+		put();
 	});
 
 	parent.appendChild(clone);
@@ -151,54 +150,17 @@ function addActivityToDOM(activity) {
 	cardFunctionality();
 }
 
-function fetchAndPopulate(id) {
-	let formEdit = document.querySelector(`[data-postid="${id}"] form`);
-
-	fetch('https://frontendautumn2019-e4d9.restdb.io/rest/todolist/' + id, {
-		method: 'get',
-		headers: {
-			'Content-Type': 'application/json; charset=utf-8',
-			'x-apikey': '5d887446fd86cb75861e25f5',
-			'cache-control': 'no-cache'
-		}
-	})
-		.then((e) => e.json())
-		.then((activity) => {
-			formEdit.elements.nameActivity.value = activity.Activity;
-			formEdit.elements.dateActivity.value = activity.Date;
-			formEdit.elements.importanceActivity.value = activity.Importance;
-			formEdit.elements.descriptionActivity.value = activity.Description;
-			formEdit.elements.meetActivity.value = activity.Partners;
-			formEdit.elements.id.value = activity._id;
-		});
-}
-
 get();
+
+/* Add new item with post() */
 
 const data = {
 	Activity: 'Gardening',
 	Date: Date.now(),
 	Importance: 7,
-	Description:
-		'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque minus ipsa impedit delectus repellendus cupiditate?',
+	Description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque minus ipsa impedit delectus repellendus cupiditate?',
 	Partners: 'Laura, Elizabeth'
 };
-
-function post() {
-	fetch('https://frontendautumn2019-e4d9.restdb.io/rest/todolist', {
-		method: 'post',
-		headers: {
-			'Content-Type': 'application/json; charset=utf-8',
-			'x-apikey': '5d887446fd86cb75861e25f5',
-			'cache-control': 'no-cache'
-		},
-		body: JSON.stringify(data)
-	})
-		.then((e) => e.json())
-		.then((newActivity) => {
-			addActivityToDOM(newActivity);
-		});
-}
 
 let formAdd = document.querySelector('.add-element-form');
 
@@ -232,27 +194,67 @@ formAdd.addEventListener('submit', (e) => {
 	post();
 });
 
+function post() {
+	fetch('https://frontendautumn2019-e4d9.restdb.io/rest/todolist', {
+			method: 'post',
+			headers: {
+				'Content-Type': 'application/json; charset=utf-8',
+				'x-apikey': '5d887446fd86cb75861e25f5',
+				'cache-control': 'no-cache'
+			},
+			body: JSON.stringify(data)
+		})
+		.then((e) => e.json())
+		.then((newActivity) => {
+			addActivityToDOM(newActivity);
+		});
+}
+
+/* Delete elements with delete() */
+
 function deleteIt(id) {
 	fetch('https://frontendautumn2019-e4d9.restdb.io/rest/todolist/' + id, {
-		method: 'delete',
-		headers: {
-			'Content-Type': 'application/json; charset=utf-8',
-			'x-apikey': '5d887446fd86cb75861e25f5',
-			'cache-control': 'no-cache'
-		}
-	})
+			method: 'delete',
+			headers: {
+				'Content-Type': 'application/json; charset=utf-8',
+				'x-apikey': '5d887446fd86cb75861e25f5',
+				'cache-control': 'no-cache'
+			}
+		})
 		.then((res) => res.json())
 		.then((data) => {
 			document.querySelector(`[data-postid="${id}"]`).remove();
+			location.reload();
+		});
+}
+
+/* Event listener function to call on pressing to edit the card */
+
+function fetchAndPopulate(id) {
+	let formEdit = document.querySelector(`[data-postid="${id}"] form`);
+
+	fetch('https://frontendautumn2019-e4d9.restdb.io/rest/todolist/' + id, {
+			method: 'get',
+			headers: {
+				'Content-Type': 'application/json; charset=utf-8',
+				'x-apikey': '5d887446fd86cb75861e25f5',
+				'cache-control': 'no-cache'
+			}
+		})
+		.then((e) => e.json())
+		.then((activity) => {
+			formEdit.elements.nameActivity.value = activity.Activity;
+			formEdit.elements.dateActivity.value = activity.Date;
+			formEdit.elements.importanceActivity.value = activity.Importance;
+			formEdit.elements.descriptionActivity.value = activity.Description;
+			formEdit.elements.meetActivity.value = activity.Partners;
+			formEdit.elements.id.value = activity._id;
 		});
 }
 
 function put() {
 	let id = event.target.parentElement.querySelector('.storeID').value;
-	console.log(id);
 	let formEdit = document.querySelector(`[data-postid="${id}"] form`);
-
-	console.log(formEdit);
 
 	const data = {
 		Activity: formEdit.elements.nameActivity.value,
@@ -263,18 +265,32 @@ function put() {
 	};
 
 	fetch('https://frontendautumn2019-e4d9.restdb.io/rest/todolist/' + id, {
-		method: 'put',
-		headers: {
-			'Content-Type': 'application/json; charset=utf-8',
-			'x-apikey': '5d887446fd86cb75861e25f5',
-			'cache-control': 'no-cache'
-		},
-		body: JSON.stringify(data)
-	})
+			method: 'put',
+			headers: {
+				'Content-Type': 'application/json; charset=utf-8',
+				'x-apikey': '5d887446fd86cb75861e25f5',
+				'cache-control': 'no-cache'
+			},
+			body: JSON.stringify(data)
+		})
 		.then((e) => e.json())
 		.then((editedActivity) => {
 			// find the parent
-			console.log(document.querySelector(`[data-postid="${editedActivity._id}"]`).remove());
+			let parent = document.querySelector(`[data-postid="${editedActivity._id}"]`);
 			// update the dom
+			parent.querySelector("h2").textContent = editedActivity.Activity;
+			parent.querySelector(".date-activity").textContent = editedActivity.Date;
+			if (editedActivity.Importance < 4) {
+				parent.querySelector('svg').children[1].style.display = 'none';
+				parent.querySelector('svg').children[2].style.display = 'none';
+			} else if (editedActivity.Importance > 4 && editedActivity.Importance < 7) {
+				parent.querySelector('svg').children[2].style.display = 'none';
+			} else if (editedActivity > 6) {
+				parent.querySelectorAll("svg").children.forEach(el => el.style.display = "block");
+			}
+			parent.querySelector(".description-activity").textContent = editedActivity.Description;
+			parent.querySelector(".meet-activity-set").textContent = editedActivity.Partners;
+
+			parent.querySelector(".card-side-front").style.transform = 'rotateY(0deg)';
 		});
 }
